@@ -26,10 +26,13 @@ class Chat extends Component {
    componentDidMount() {
         // Create the socket    
         const port = this.props.match.params.port;
-        socket = io(process.env.REACT_APP_SERVER_DOMAIN + port, {transports: ['websocket', 'polling', 'flashsocket']});
+        console.log(`Connecting to port ${port}`);
+        socket = io(process.env.REACT_APP_SERVER_DOMAIN, {transports: ['websocket', 'polling', 'flashsocket']});
+        console.log('connected?');
         
         // Function that will print new message when received from the socket
         socket.on('chat message', (message) => {
+            console.log('sending message');
             this.setState({
                 messages: [...this.state.messages, message]
             })
